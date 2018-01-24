@@ -24,7 +24,17 @@ public class UserServiceImpl implements UserService {
 	public void createUser(UserVo vo) throws Exception {
 		mapper.create(vo);
 	}
+	
+	@Override
+	public void updateUser(UserVo vo) throws Exception {
+		mapper.update(vo);
+	}
 
+	@Override
+	public void deleteUser(String userId) throws Exception {
+		mapper.delete(userId);
+	}
+	
 	@Override
 	public UserVo login(LoginDto dto) throws Exception {
 		return mapper.login(dto);

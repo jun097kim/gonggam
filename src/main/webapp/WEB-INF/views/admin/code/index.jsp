@@ -9,7 +9,7 @@
 			<div class="col-md-6">
 				<h3 class="title">코드그룹
 					<a href="#" class="btn btn-primary btn-sm rounded-s" id="btn-add"
-						data-toggle="modal" data-target="#modal-add-edit">추가</a>
+						data-toggle="modal" data-target="#modal-addEdit">추가</a>
 				</h3>
 			</div>
 		</div>
@@ -152,7 +152,7 @@
 			<td>
 				<div class="btn-group">
 					<button type="button" class="btn-edit btn btn-secondary btn-sm"
-						data-toggle="modal" data-target="#modal-add-edit">수정</button>
+						data-toggle="modal" data-target="#modal-addEdit">수정</button>
 					<button type="button" class="btn-remove btn btn-secondary btn-sm"
 						data-toggle="modal" data-target="#modal-delete">삭제</button>
 				</div>
@@ -196,6 +196,7 @@
 			},
 			error: function(msg) {
 				alert(msg);
+				$codegroupId.focus();
 			},
 			complete: function() {
 				$codegroupId.val('');
@@ -229,11 +230,10 @@
 		});
 	});
 	
-	const $modalAddEdit = $('#modal-add-edit');
 	$('#btn-add').on('click', function() {
-		initModal($modalAddEdit);
+		initModal($('#modal-addEdit'));
 		
-		$('#modal-add-edit .modal-title').html('코드그룹 추가');
+		$('#modal-addEdit .modal-title').html('코드그룹 추가');
 		$('#modal-addEdit form').attr('method', 'post');
 	});
 	

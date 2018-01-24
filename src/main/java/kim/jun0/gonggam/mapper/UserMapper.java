@@ -11,5 +11,9 @@ public interface UserMapper {
 	
 	public void create(UserVo vo) throws Exception;
 	
+	public void update(UserVo vo) throws Exception;
+	
+	public void delete(String userId) throws Exception;
+	
 	public UserVo login(LoginDto dto) throws Exception;
 }

@@ -21,6 +21,18 @@
 		INSERT INTO tbl_user (user_id, user_pw, user_name)
 		VALUES (#{userId}, #{userPw}, #{userName})
 	</insert>
+	
+	<update id="update">
+		UPDATE tbl_user
+		SET user_pw = #{userPw}
+			, user_name = #{userName}
+		WHERE user_id = #{userId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_user
+		WHERE user_id = #{userId}
+	</delete>
 
 	<select id="login" resultMap="userResultMap">
 		SELECT *

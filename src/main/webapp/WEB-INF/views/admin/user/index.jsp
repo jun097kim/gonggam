@@ -9,7 +9,8 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h3 class="title">사용자
-					<a href="#" class="btn btn-primary btn-sm rounded-s" data-toggle="modal" data-target="#modal-user-add-edit">추가</a>
+					<a href="#" class="btn btn-primary btn-sm rounded-s" id="btn-add"
+						data-toggle="modal" data-target="#modal-addEdit">추가</a>
 				</h3>
 			</div>
 		</div>
@@ -28,23 +29,30 @@
 	</div>
 </div>
 <section class="section">
-	<div class="card table-responsive">
-		<table class="table table-sm table-striped table-bordered">
-			<thead>
-				<tr>
-					<th class="fit"></th>
-					<th>아이디</th>
-					<th>이름</th>
-					<th>등록일</th>
-					<th class="fit"></th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
+	<div class="card">
+		<div class="card-block">
+			<div class="card-title-block">
+				<h3 class="title">사용자</h3>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-sm table-striped table-bordered">
+					<thead>
+						<tr>
+							<th class="fit"></th>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>등록일</th>
+							<th class="fit"></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </section>
 
-<div class="modal fade" id="modal-user-add-edit">
+<div class="modal fade" id="modal-addEdit">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -53,49 +61,49 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<form>
+			<form>
+				<div class="modal-body">
 					<div class="form-group row">
 						<div class="col-sm-3">
-							<label for="userid">아이디</label>
+							<label for="userId">아이디</label>
 						</div>
 						<div class="col-sm-9">
 							<input type="text" class="form-control"
-								id="userid" name="userid" placeholder="아이디">
+								id="userId" name="userId" placeholder="아이디">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-3">
-							<label for="userpw">비밀번호</label>
+							<label for="userPw">비밀번호</label>
 						</div>
 						<div class="col-sm-9">
 							<input type="password" class="form-control"
-								id="userpw" name="userpw" placeholder="비밀번호">
+								id="userPw" name="userPw" placeholder="비밀번호">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-3">
-							<label for="username">이름</label>
+							<label for="userName">이름</label>
 						</div>
 						<div class="col-sm-9">
 							<input type="text" class="form-control"
-								id="username" name="username" placeholder="이름">
+								id="userName" name="userName" placeholder="이름">
 						</div>
 					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" id="btn-ok">확인</button>
-			</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					<button type="submit" class="btn btn-primary">확인</button>
+				</div>
+			</form>
 		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-<!-- /#modal-user-add-edit -->
+<!-- /#modal-addEdit -->
 
-<div class="modal fade" id="modal-user-delete">
+<div class="modal fade" id="modal-delete">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -104,33 +112,36 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<p>정말 삭제하시겠습니까?</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="btn-ok">확인</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-			</div>
+			<form>
+				<input type="hidden" name="userId">
+				<div class="modal-body">
+					<p>정말 삭제하시겠습니까?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">확인</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				</div>
+			</form>
 		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-<!-- /#modal-user-delete -->
+<!-- /#modal-delete -->
 
 <script id="template" type="text/x-handlebars-template">
 	{{#each .}}
 		<tr>
 			<th>{{oneBased @index}}</th>
-			<td>{{userId}}</td>
-			<td>{{userName}}</td>
-			<td>{{formatDate regDate}}</td>
+			<td class="userId">{{userId}}</td>
+			<td class="userName">{{userName}}</td>
+			<td class="regDate">{{formatDate regDate}}</td>
 			<td>
 				<div class="btn-group">
-					<button type="button" class="btn btn-secondary btn-sm" id="btn-edit"
-						data-toggle="modal" data-target="#modal-user-add-edit">수정</button>
-					<button type="button" class="btn btn-secondary btn-sm"
-						data-toggle="modal" data-target="#modal-user-delete">삭제</button>
+					<button type="button" class="btn-edit btn btn-secondary btn-sm"
+						data-toggle="modal" data-target="#modal-addEdit">수정</button>
+					<button type="button" class="btn-remove btn btn-secondary btn-sm"
+						data-toggle="modal" data-target="#modal-delete">삭제</button>
 				</div>
 			</td>
 		</tr>
@@ -141,44 +152,90 @@
 	(getUser = function() {
 		$.getJSON('/api/users', function(result) {
 			replaceData(result, $('tbody'), $('#template'));
-			$('#modal-user-add-edit').modal('hide');
+			$('#modal-addEdit').modal('hide');
+			$('#modal-delete').modal('hide');
 		});
 	})();
 	
-	$('#btn-ok').on('click', function() {
-		let $userid = $('input[name=userid]');
-		let $userpw = $('input[name=userpw]');
-		let $username = $('input[name=username]');
+	let $userId = $('#modal-addEdit input[name=userId]');
+	let $userPw = $('#modal-addEdit input[name=userPw]');
+	let $userName = $('#modal-addEdit input[name=userName]');
+	
+	$('#modal-addEdit form').submit(function(event) {
+		event.preventDefault();
 		
 		$.ajax({
-			type: "post",
+			type: $(this).attr('method'),
 			url: "/api/users",
 			data: JSON.stringify({
-				userid: $userid.val(),
-				userpw: $userpw.val(),
-				username: $username.val()
+				userId: $userId.val(),
+				userPw: $userPw.val(),
+				userName: $userName.val()
 			}),
 			headers: {
 				"Content-Type": "application/json"
 			},
-			success: function(result) {
-				alert('사용자가 성공적으로 등록되었습니다.');
+			success: function(msg) {
+				alert(msg);
 				getUser();
 			},
-			error: function() {
-				alert('사용자 등록에 실패하였습니다.');
+			error: function(msg) {
+				alert(msg);
 				$userid.focus();
-			},
-			complete: function() {
-				$userid.val('');
-				$userpw.val('');
-				$username.val('');
 			}
 		});
 	});
 	
-	$('#btn-edit').on('click', function() {
-		$('#modal-user-add-edit .modal-title').html('사용자 수정');
+	$('#modal-delete form').submit(function(event) {
+		event.preventDefault();
+		
+		$.ajax({
+			type: "DELETE",
+			url: "/api/users",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			data: JSON.stringify({
+				userId: $('#modal-delete input[name=userId]').val()
+			}),
+			success: function(msg) {
+				alert(msg);
+				getUser();
+			},
+			error: function(msg) {
+				alert(msg);
+				$('#modal-delete').modal('hide');
+			}
+		});
+	});
+	
+	$('#btn-add').on('click', function() {
+		initModal($('#modal-addEdit'));
+		
+		$('#modal-addEdit .modal-title').html('사용자 추가');
+		$('#modal-addEdit input[name=userId]').prop('disabled', false);
+		$('#modal-addEdit form').attr('method', 'post');
+	});
+	
+	$('tbody').on('click', '.btn-edit' , function() {
+		initModal($('#modal-addEdit'));
+		
+		$('#modal-addEdit .modal-title').html('사용자 수정');
+		$('#modal-addEdit input[name=userId]').prop('disabled', true);
+		$('#modal-addEdit form').attr('method', 'put');
+		
+		let $tr = $(this).closest('tr');
+		
+		let userId = $tr.children('.userId').html();
+		let userName = $tr.children('.userName').html();
+		
+		$userId.val(userId);
+		$userName.val(userName);
+	});
+	
+	$('tbody').on('click', '.btn-remove', function() {
+		let userId = $(this).closest('tr').children('.userId').html();
+		$('#modal-delete input[name=userId]').val(userId);
 	});
 </script>
 
