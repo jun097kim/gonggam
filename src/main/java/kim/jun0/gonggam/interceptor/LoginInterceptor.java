@@ -36,11 +36,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		
 		HttpSession session = request.getSession();
-		Object userVO = modelAndView.getModel().get("userVO");
+		Object userVo = modelAndView.getModel().get("userVo");
 		
-		if (userVO != null) {
+		if (userVo != null) {
 			logger.info("login success");
-			session.setAttribute(LOGIN, userVO);
+			session.setAttribute(LOGIN, userVo);
 			response.sendRedirect("/admin");
 		}
 	}

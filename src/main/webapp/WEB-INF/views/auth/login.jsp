@@ -32,10 +32,10 @@
 					<form id="login-form" action="/auth/loginPost" method="POST">
 						<div class="form-group">
 							<label for="username">아이디</label>
-							<input type="text" class="form-control underlined" name="userid" id="username" placeholder="아이디" required> </div>
+							<input type="text" class="form-control underlined" name="userId" placeholder="아이디" required> </div>
 						<div class="form-group">
 							<label for="password">비밀번호</label>
-							<input type="password" class="form-control underlined" name="userpw" id="password" placeholder="비밀번호" required> </div>
+							<input type="password" class="form-control underlined" name="userPw" placeholder="비밀번호" required> </div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-block btn-primary" id="loginBtn">로그인</button>
 						</div>

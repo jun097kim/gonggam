@@ -2,14 +2,14 @@ package kim.jun0.gonggam.mapper;
 
 import java.util.List;
 
-import kim.jun0.gonggam.domain.UserVO;
-import kim.jun0.gonggam.dto.LoginDTO;
+import kim.jun0.gonggam.domain.UserVo;
+import kim.jun0.gonggam.dto.LoginDto;
 
 public interface UserMapper {
 
-	public UserVO login(LoginDTO dto);
+	public List<UserVo> list() throws Exception;
 	
-	public void addUser(UserVO vo);
+	public void create(UserVo vo) throws Exception;
 	
-	public List<UserVO> listAll();
+	public UserVo login(LoginDto dto) throws Exception;
 }
