@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="kim.jun0.gonggam.mapper.CodegroupMapper">
+
+	<resultMap type="CodegroupVo" id="codegroupResultMap">
+		<id	property="codegroupId"			column="codegroup_id" />
+		<result property="codegroupName"	column="codegroup_name" />
+		<result property="codegroupDesc"	column="codegroup_desc" />
+		<result property="regUserId"		column="reg_user_id" />
+		<result property="regDate"			column="reg_date" />
+		<result property="updateUserId"		column="update_user_id" />
+		<result property="updateDate"		column="update_date" />
+	</resultMap>
+
+	<select id="list" resultMap="codegroupResultMap">
+		SELECT *
+		FROM tbl_codegroup
+	</select>
+
+	<insert id="create">
+		INSERT INTO tbl_codegroup (codegroup_id, codegroup_name, codegroup_desc, reg_user_id)
+		VALUES (
+			#{codegroupId}
+			, #{codegroupName, jdbcType=VARCHAR}
+			, #{codegroupDesc, jdbcType=VARCHAR}
+			, #{regUserId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tbl_codegroup
+		SET	codegroup_id = #{codegroupId, jdbcType=VARCHAR}	
+			, codegroup_name = #{codegroupName, jdbcType=VARCHAR}
+			, codegroup_desc = #{codegroupDesc, jdbcType=VARCHAR}
+			, update_user_id = #{updateUserId}
+			, update_date = SYSDATE
+		WHERE codegroup_id = #{old_codegroupId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_codegroup
+		WHERE codegroup_id = #{codegroupId}
+	</delete>
+
+</mapper>
