@@ -100,7 +100,8 @@
 				name: "proton",
 				responsive: true
 			},
-			check_callback: true
+			check_callback: true,
+			multiple: false
 		},
 		plugins: ['wholerow', 'changed']
 	})
@@ -136,6 +137,7 @@
 		
 		if (!selectedId.length) {
 			selectedId = tree.create_node('#', {text: '새 메뉴', data: {openYn: "Y"}});
+			return;
 		}
 		
 		selectedId = tree.create_node(selectedId, {text: '새 메뉴', data: {openYn: "Y"}}, 'last', function(node) {
