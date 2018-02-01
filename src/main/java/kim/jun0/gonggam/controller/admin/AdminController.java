@@ -27,4 +27,9 @@ public class AdminController {
 	public String viewCodeIndex() throws Exception {
 		return "/admin/code/index";
 	}
+
+	@GetMapping("/menu")
+	public String viewMenuIndex() throws Exception {
+		return "/admin/menu/index";
+	}
 }

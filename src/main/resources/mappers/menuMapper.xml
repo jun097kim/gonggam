@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kim.jun0.gonggam.mapper.MenuMapper">
+
+	<resultMap type="MenuVo" id="menuResultMap">
+		<id property="menuId"			column="menu_id" />
+		<result property="menuName"		column="menu_name" />
+		<result property="parentMenuId"	column="parent_menu_id" />
+		<association property="data" resultMap="dataResultMap" />
+	</resultMap>
+	
+	<resultMap type="Data" id="dataResultMap">
+		<result property="menuUrl"		column="menu_url" />
+		<result property="sortNo"		column="sort_no" />
+		<result property="openYn"		column="open_yn" />
+	</resultMap>
+	
+	<select id="list" resultMap="menuResultMap">
+		SELECT
+			menu_id, menu_name, menu_url
+			, NVL(parent_menu_id, '#') AS parent_menu_id
+			, sort_no, open_yn
+		FROM tbl_menu
+		ORDER BY sort_no
+	</select>
+	
+	<update id="update" parameterType="java.util.List">
+	{ CALL
+		BEGIN
+			<foreach collection="list" item="element" separator=";" close=";">
+				MERGE INTO tbl_menu
+					USING dual
+					ON (menu_id = #{element.menuId})
+				WHEN MATCHED THEN
+					UPDATE SET
+						menu_name = #{element.menuName, jdbcType=VARCHAR}
+						, menu_url = #{element.data.menuUrl, jdbcType=VARCHAR}
+						, parent_menu_id = DECODE(#{element.parentMenuId}, '#', NULL, #{element.parentMenuId})
+						, sort_no = #{element.data.sortNo, jdbcType=INTEGER}
+						, open_yn = #{element.data.openYn}
+				WHEN NOT MATCHED THEN
+					INSERT (menu_id, menu_name, menu_url, parent_menu_id, sort_no, open_yn)
+					VALUES (
+						#{element.menuId}
+						, #{element.menuName, jdbcType=VARCHAR}
+						, #{element.data.menuUrl, jdbcType=VARCHAR}
+						, DECODE(#{element.parentMenuId}, '#', NULL, #{element.parentMenuId})
+						, #{element.data.sortNo, jdbcType=INTEGER}
+						, #{element.data.openYn}
+					)
+			</foreach>
+		END
+	}
+	</update>
+	
+	<delete id="delete">
+	{ CALL
+		BEGIN
+			<foreach collection="list" item="element" separator=";" close=";">
+				DELETE FROM tbl_menu
+				WHERE menu_id = #{element}
+				<!-- ON DELETE CASCADE -->
+			</foreach>
+		END
+	}
+	</delete>
+
+</mapper>
