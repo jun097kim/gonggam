@@ -6,3 +6,28 @@
 .table th.fit {
 	width: 1%;
 }
+
+.table-hover > tbody > tr {
+	cursor: pointer;
+}
+
+.table-responsive {
+	overflow-x: scroll;	
+}
+
+.jstree-proton .jstree-anchor:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
+label {
+	line-height: 100%;
+    margin: .5rem 0;
+}
+.col-form-label {
+	margin: auto;
+}
+
+.input-group {
+	margin-bottom: 0;
+}

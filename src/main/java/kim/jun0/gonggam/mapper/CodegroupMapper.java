@@ -12,5 +12,7 @@ public interface CodegroupMapper {
 	
 	public void update(CodegroupVo vo) throws Exception;
 	
+	public int getChildCodeCnt(String codegroupId) throws Exception;
+	
 	public void delete(String codegroupId) throws Exception;
 }

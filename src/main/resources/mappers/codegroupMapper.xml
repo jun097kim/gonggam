@@ -23,7 +23,7 @@
 	<insert id="create">
 		INSERT INTO tbl_codegroup (codegroup_id, codegroup_name, codegroup_desc, reg_user_id)
 		VALUES (
-			#{codegroupId}
+			UPPER(#{codegroupId})
 			, #{codegroupName, jdbcType=VARCHAR}
 			, #{codegroupDesc, jdbcType=VARCHAR}
 			, #{regUserId}
@@ -32,13 +32,27 @@
 	
 	<update id="update">
 		UPDATE tbl_codegroup
-		SET	codegroup_id = #{codegroupId, jdbcType=VARCHAR}	
+		SET	codegroup_id = UPPER(#{codegroupId, jdbcType=VARCHAR})	
 			, codegroup_name = #{codegroupName, jdbcType=VARCHAR}
 			, codegroup_desc = #{codegroupDesc, jdbcType=VARCHAR}
 			, update_user_id = #{updateUserId}
 			, update_date = SYSDATE
-		WHERE codegroup_id = #{old_codegroupId}
+		WHERE codegroup_id = UPPER(#{old_codegroupId})
+		<!-- 트리거 작동
+		CREATE OR REPLACE TRIGGER trg_rename_codegroupid
+		AFTER UPDATE ON tbl_codegroup FOR EACH ROW
+		BEGIN
+			UPDATE tbl_code
+			SET codegroup_id = :NEW.codegroup_id
+			WHERE codegroup_id = :OLD.codegroup_id;
+		END; -->
 	</update>
+	
+	<select id="getChildCodeCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_code
+		WHERE codegroup_id = #{codegroupId}
+	</select>
 	
 	<delete id="delete">
 		DELETE FROM tbl_codegroup

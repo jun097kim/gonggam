@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kim.jun0.gonggam.mapper.CodeMapper">
+
+	<resultMap type="CodeVo" id="codeResultMap">
+		<id property="codegroupId"		column="codegroup_id" />
+		<id property="codeId"			column="code_id" />
+		<result property="codeName"		column="code_name" />
+		<result property="codeDesc"		column="code_desc" />
+		<result property="sortNo"		column="sort_no" />
+		<result property="regUserId"	column="reg_user_id" />
+		<result property="regDate"		column="reg_date" />
+		<result property="updateUserId"	column="update_user_id" />
+		<result property="updateDate"	column="update_date" />
+	</resultMap>
+
+	<select id="list" resultMap="codeResultMap">
+		SELECT *
+		FROM tbl_code
+		WHERE codegroup_id = #{codegroupId}
+		ORDER BY sort_no
+	</select>
+	
+	<insert id="create">
+		INSERT INTO tbl_code (codegroup_id, code_id, code_name, code_desc, sort_no, reg_user_id, reg_date)
+		VALUES (
+			#{codegroupId}
+			, #{codeId}
+			, #{codeName, jdbcType=VARCHAR}
+			, #{codeDesc, jdbcType=VARCHAR}
+			, #{sortNo, jdbcType=INTEGER}
+			, #{regUserId}
+			, SYSDATE
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tbl_code
+		SET code_id = #{codeId}
+			, code_name = #{codeName, jdbcType=VARCHAR}
+			, code_desc = #{codeDesc, jdbcType=VARCHAR}
+			, sort_no = #{sortNo, jdbcType=INTEGER}
+			, update_user_id = #{updateUserId}
+			, update_date = SYSDATE
+		WHERE codegroup_id = #{codegroupId}
+			AND code_id = #{old_codeId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_code
+		WHERE code_id = #{codeId}
+	</delete>
+
+</mapper>

@@ -12,6 +12,8 @@ public interface CodegroupService {
 	public void createCodegroup(@ActiveUser String userId, CodegroupVo vo) throws Exception;
 	
 	public void updateCodegroup(@ActiveUser String userId, CodegroupVo vo) throws Exception;
-	
+
+	public int getChildCodeCnt(String codegroupId) throws Exception;
+
 	public void deleteCodegroup(String codegroupId) throws Exception;
 }

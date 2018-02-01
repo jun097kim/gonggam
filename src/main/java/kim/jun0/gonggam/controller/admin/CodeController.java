@@ -14,27 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kim.jun0.gonggam.annotation.ActiveUser;
-import kim.jun0.gonggam.domain.CodegroupVo;
-import kim.jun0.gonggam.exception.ChildRecordFoundException;
-import kim.jun0.gonggam.service.CodegroupService;
+import kim.jun0.gonggam.domain.CodeVo;
+import kim.jun0.gonggam.service.CodeService;
 import lombok.extern.java.Log;
 
 @RestController
-@RequestMapping("/api/codegroups")
+@RequestMapping("/api/codes")
 @Log
-public class CodegroupController {
+public class CodeController {
 	
 	@Autowired
-	private CodegroupService service;
-
+	private CodeService service;
+	
 	@GetMapping("")
-	public ResponseEntity<List<CodegroupVo>> listCodegroup() {
+	public ResponseEntity<List<CodeVo>> listCode(String codegroupId) {
 		
-		ResponseEntity<List<CodegroupVo>> entity = null;
+		ResponseEntity<List<CodeVo>> entity = null;
 		
 		try {
-			List<CodegroupVo> codegroups = service.listCodegroup();
-			entity = new ResponseEntity<>(codegroups, HttpStatus.OK);
+			List<CodeVo> codes = service.listCode(codegroupId);
+			entity = new ResponseEntity<>(codes, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,39 +44,39 @@ public class CodegroupController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<String> createCodegroup(@ActiveUser String loginId, @RequestBody CodegroupVo vo) {
+	public ResponseEntity<String> createCode(@ActiveUser String loginId, @RequestBody CodeVo vo) {
 		
 		ResponseEntity<String> entity = null;
 		String msg = null;
 		
 		try {
-			service.createCodegroup(loginId, vo);
-			msg = "코드그룹이 성공적으로 등록되었습니다.";
-			entity = new ResponseEntity<>(msg, HttpStatus.OK);
+			service.createCode(loginId, vo);
+			msg = "공통코드가 성공적으로 추가되었습니다.";
+			entity = new ResponseEntity<>(msg, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "코드그룹 등록에 실패하였습니다.";
+			msg = "공통코드 추가에 실패하였습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
 	}
 	
-	@PutMapping
-	public ResponseEntity<String> updateCodegroup(@ActiveUser String loginId, @RequestBody CodegroupVo vo) {
+	@PutMapping("")
+	public ResponseEntity<String> updateCode(@ActiveUser String loginId, @RequestBody CodeVo vo) {
 		
 		ResponseEntity<String> entity = null;
 		String msg = null;
 		
 		try {
-			service.updateCodegroup(loginId, vo);
-			msg = "코드그룹이 성공적으로 수정되었습니다.";
+			service.updateCode(loginId, vo);
+			msg = "공통코드가 성공적으로 수정되었습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "코드그룹 수정에 실패하였습니다.";
+			msg = "공통코드 수정에 실패하였습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -85,28 +84,19 @@ public class CodegroupController {
 	}
 	
 	@DeleteMapping("")
-	public ResponseEntity<String> deleteCodegroup(@RequestBody CodegroupVo vo) {
+	public ResponseEntity<String> deleteCode(@RequestBody CodeVo vo) {
 		
 		ResponseEntity<String> entity = null;
 		String msg = null;
 		
 		try {
-			int childCodeCnt = service.getChildCodeCnt(vo.getCodegroupId());
-			if (childCodeCnt > 0) {
-				throw new ChildRecordFoundException();
-			}
-			
-			service.deleteCodegroup(vo.getCodegroupId());
-			msg = "코드그룹이 정상적으로 삭제되었습니다.";
+			service.deleteCode(vo.getCodeId());
+			msg = "공통코드가 성공적으로 삭제되었습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.OK);
-			
-		} catch(ChildRecordFoundException e) {
-			msg = "공통코드를 가진 코드그룹은 삭제할 수 없습니다.";
-			entity = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "코드그룹 삭제에 실패하였습니다.";
+			msg = "공통코드 삭제에 실패하였습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 		
