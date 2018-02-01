@@ -20,9 +20,3 @@ function replaceData(arr, $target, $template) {
 	var template = Handlebars.compile($template.html());
 	$target.html(template(arr));
 }
-
-function initModal($modal) {
-	$modal.find('input').each(function() {
-		$(this).val('');
-	});
-}

@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kim.jun0.gonggam.domain.UserVo;
 import kim.jun0.gonggam.service.UserService;
+import lombok.extern.java.Log;
 
 @RestController
 @RequestMapping("/api/users")
+@Log
 public class UserController {
 
 	@Autowired
@@ -30,8 +32,8 @@ public class UserController {
 		ResponseEntity<List<UserVo>> entity = null;
 		
 		try {
-			List<UserVo> list = service.listUser();
-			entity = new ResponseEntity<>(list, HttpStatus.OK);
+			List<UserVo> users = service.listUser();
+			entity = new ResponseEntity<>(users, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

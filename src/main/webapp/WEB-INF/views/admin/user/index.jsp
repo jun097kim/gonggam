@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
 <div class="title-search-block">
@@ -172,6 +171,7 @@
 				userPw: $userPw.val(),
 				userName: $userName.val()
 			}),
+			dataType: "text",
 			headers: {
 				"Content-Type": "application/json"
 			},
@@ -179,8 +179,8 @@
 				alert(msg);
 				getUser();
 			},
-			error: function(msg) {
-				alert(msg);
+			error: function(xhr) {
+				alert(xhr.responseText);
 				$userid.focus();
 			}
 		});
@@ -193,24 +193,27 @@
 			type: "DELETE",
 			url: "/api/users",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				"X-HTTP-Method-Override": "DELETE"
 			},
 			data: JSON.stringify({
 				userId: $('#modal-delete input[name=userId]').val()
 			}),
-			success: function(msg) {
-				alert(msg);
+			dataType: "text",
+			success: function() {
 				getUser();
 			},
-			error: function(msg) {
-				alert(msg);
+			error: function() {
 				$('#modal-delete').modal('hide');
+			},
+			complete: function(xhr) {
+				alert(xhr.responseText);
 			}
 		});
 	});
 	
 	$('#btn-add').on('click', function() {
-		initModal($('#modal-addEdit'));
+		$('#modal-addEdit form').get(0).reset();
 		
 		$('#modal-addEdit .modal-title').html('사용자 추가');
 		$('#modal-addEdit input[name=userId]').prop('disabled', false);
@@ -218,7 +221,7 @@
 	});
 	
 	$('tbody').on('click', '.btn-edit' , function() {
-		initModal($('#modal-addEdit'));
+		$('#modal-addEdit form').get(0).reset();
 		
 		$('#modal-addEdit .modal-title').html('사용자 수정');
 		$('#modal-addEdit input[name=userId]').prop('disabled', true);

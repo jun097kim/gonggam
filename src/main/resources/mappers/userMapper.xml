@@ -6,7 +6,7 @@
 <mapper namespace="kim.jun0.gonggam.mapper.UserMapper">
 
 	<resultMap type="UserVo" id="userResultMap">
-		<id property="userId"	column="user_id" />
+		<id property="userId"		column="user_id" />
 		<result property="userName"	column="user_name" />
 		<result property="regDate"	column="reg_date" />
 	</resultMap>
