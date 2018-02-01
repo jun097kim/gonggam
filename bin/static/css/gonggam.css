@@ -1,8 +1,0 @@
-.table td,
-.table th {
-	white-space: nowrap;
-}
-.table td.fit,
-.table th.fit {
-	width: 1%;
-}
