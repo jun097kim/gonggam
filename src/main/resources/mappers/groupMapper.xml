@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kim.jun0.gonggam.mapper.GroupMapper">
+
+	<resultMap type="GroupVo" id="groupResultMap">
+		<id property="groupNo"			column="group_no" />
+		<result property="groupId"		column="group_id" />
+		<result property="groupName"	column="group_name" />
+	</resultMap>
+
+	<select id="list" resultMap="groupResultMap">
+		SELECT *
+		FROM tbl_group
+		ORDER BY group_no
+	</select>
+
+	<insert id="create">
+		INSERT INTO tbl_group
+		VALUES (
+			SEQ_GROUP.NEXTVAL
+			, UPPER(#{groupId})
+			, #{groupName, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE tbl_group
+		SET group_id = UPPER(#{groupId})
+			, group_name = #{groupName}
+		WHERE group_no = #{groupNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_group
+		WHERE group_no = #{groupNo}
+	</delete>
+	
+</mapper>
