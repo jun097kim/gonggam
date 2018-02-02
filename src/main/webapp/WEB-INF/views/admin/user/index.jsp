@@ -156,9 +156,9 @@
 		});
 	})();
 	
-	let $userId = $('#modal-addEdit input[name=userId]');
-	let $userPw = $('#modal-addEdit input[name=userPw]');
-	let $userName = $('#modal-addEdit input[name=userName]');
+	const $userId = $('#modal-addEdit input[name=userId]');
+	const $userPw = $('#modal-addEdit input[name=userPw]');
+	const $userName = $('#modal-addEdit input[name=userName]');
 	
 	$('#modal-addEdit form').submit(function(event) {
 		event.preventDefault();
@@ -213,7 +213,7 @@
 	});
 	
 	$('#btn-add').on('click', function() {
-		$('#modal-addEdit form').get(0).reset();
+		document.querySelector('#modal-addEdit form').reset();
 		
 		$('#modal-addEdit .modal-title').html('사용자 추가');
 		$('#modal-addEdit input[name=userId]').prop('disabled', false);
@@ -221,23 +221,23 @@
 	});
 	
 	$('tbody').on('click', '.btn-edit' , function() {
-		$('#modal-addEdit form').get(0).reset();
+		document.querySelector('#modal-addEdit form').reset();
 		
 		$('#modal-addEdit .modal-title').html('사용자 수정');
 		$('#modal-addEdit input[name=userId]').prop('disabled', true);
 		$('#modal-addEdit form').attr('method', 'put');
 		
-		let $tr = $(this).closest('tr');
+		const $tr = $(this).closest('tr');
 		
-		let userId = $tr.children('.userId').html();
-		let userName = $tr.children('.userName').html();
+		const userId = $tr.children('.userId').html();
+		const userName = $tr.children('.userName').html();
 		
 		$userId.val(userId);
 		$userName.val(userName);
 	});
 	
 	$('tbody').on('click', '.btn-remove', function() {
-		let userId = $(this).closest('tr').children('.userId').html();
+		const userId = $(this).closest('tr').children('.userId').html();
 		$('#modal-delete input[name=userId]').val(userId);
 	});
 </script>

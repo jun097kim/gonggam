@@ -109,7 +109,7 @@
 		tree = $('#tree-menu').jstree(true);
 		
 		// 로딩 후 2depth까지 펼치기
-		let depth = 2;
+		const depth = 2;
 		data.instance.get_container().find('li').each(function() {
 			if(data.instance.get_path($(this)).length <= depth) {
 				data.instance.open_node($(this));
@@ -119,7 +119,7 @@
 	.on('select_node.jstree', function(event, data) {
 		$('form input').prop('disabled', false);
 		
-		let node = data.node;
+		const node = data.node;
 		$menuName.val(node.text);
 		
 		if (node.data == null) {
@@ -133,7 +133,7 @@
 	});
 	
 	$('#btn-add').on('click', function() {
-		let selectedId = tree.get_selected();
+		const selectedId = tree.get_selected();
 		
 		if (!selectedId.length) {
 			selectedId = tree.create_node('#', {text: '새 메뉴', data: {openYn: "Y"}});
@@ -147,9 +147,9 @@
 		$(this).blur();
 	});
 	
-	let deleted = [];
+	const deleted = [];
 	$('#btn-remove').on('click', function() {
-		let selectedId = tree.get_selected();
+		const selectedId = tree.get_selected();
 		if (!selectedId.length) { return false; }
 		deleted.push(selectedId[0]);
 		tree.delete_node(selectedId);
@@ -159,12 +159,12 @@
 	});
 	
 	$('form').focusout(function() {
-		let selectedId = tree.get_selected();
+		const selectedId = tree.get_selected();
 		
-		let menuName = $menuName.val();
-		let menuUrl = $menuUrl.val();
-		let sortNo = $sortNo.val();
-		let openYn = $('input[name=useYn]:checked').val();
+		const menuName = $menuName.val();
+		const menuUrl = $menuUrl.val();
+		const sortNo = $sortNo.val();
+		const openYn = $('input[name=useYn]:checked').val();
 		
 		tree.rename_node(selectedId, menuName);
 		tree.get_node(selectedId).data = {

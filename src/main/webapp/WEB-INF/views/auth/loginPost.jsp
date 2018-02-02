@@ -3,15 +3,13 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 
+<head></head>
+
+<body>
 	<script>
 		location.href = '/admin';
 	</script>
-
 </body>
+
 </html>

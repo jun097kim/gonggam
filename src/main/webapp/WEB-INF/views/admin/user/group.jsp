@@ -204,7 +204,7 @@
 	});
 	
 	$('#btn-add').on('click', function() {
-		$('#modal-addEdit form').get(0).reset();
+		document.querySelector('#modal-addEdit form').reset();
 		
 		$('#modal-addEdit .modal-title').html('그룹 추가');
 		$('#modal-addEdit form').attr('method', 'post');
@@ -214,11 +214,11 @@
 		$('#modal-addEdit .modal-title').html('그룹 수정');
 		$('#modal-addEdit form').attr('method', 'put');
 		
-		let $tr = $(this).closest('tr');
+		const $tr = $(this).closest('tr');
 		
-		let groupNo = $tr.data('no');
-		let groupId = $tr.children('.groupId').html().replace('GRP_', '');
-		let groupName = $tr.children('.groupName').html();
+		const groupNo = $tr.data('no');
+		const groupId = $tr.children('.groupId').html().replace('GRP_', '');
+		const groupName = $tr.children('.groupName').html();
 		
 		$groupNo.val(groupNo);
 		$groupId.val(groupId);
@@ -226,7 +226,7 @@
 	});
 	
 	$('tbody').on('click', '.btn-remove', function() {
-		let groupNo = $(this).closest('tr').data('no');
+		const groupNo = $(this).closest('tr').data('no');
 		$('#modal-delete input[name=groupNo]').val(groupNo);
 	});
 </script>

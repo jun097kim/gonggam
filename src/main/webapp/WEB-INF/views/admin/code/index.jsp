@@ -330,7 +330,6 @@
 	
 	$('#modal-delete-codegroup form').submit(function(event) {
 		event.preventDefault();
-		console.log($('#modal-delete-codegroup input[name=codegroupId]').val());
 		
 		$.ajax({
 			type: "DELETE",
@@ -355,7 +354,7 @@
 	});
 	
 	$('#btn-add-codegroup').on('click', function() {
-		$('#modal-addEdit-codegroup form').get(0).reset();
+		document.querySelector('#modal-addEdit-codegroup form').reset();
 		
 		$('#modal-addEdit-codegroup .modal-title').html('코드그룹 추가');
 		$('#modal-addEdit-codegroup form').attr('method', 'post');
@@ -365,22 +364,21 @@
 		$('#modal-addEdit-codegroup .modal-title').html('코드그룹 수정');
 		$('#modal-addEdit-codegroup form').attr('method', 'put');
 		
-		let $tr = $(this).closest('tr');
+		const $tr = $(this).closest('tr');
 		
-		let codegroupId = $tr.children('.codegroupId').html();
-		let old_codegroupId = $tr.children('.codegroupId').html();
-		let codegroupName = $tr.children('.codegroupName').html();
-		let codegroupDesc = $tr.children('.codegroupDesc').html();
+		const codegroupId = $tr.children('.codegroupId').html();
+		const old_codegroupId = $tr.children('.codegroupId').html();
+		const codegroupName = $tr.children('.codegroupName').html();
+		const codegroupDesc = $tr.children('.codegroupDesc').html();
 		
 		$codegroupId.val(codegroupId);
 		$old_codegroupId.val(codegroupId);
 		$codegroupName.val(codegroupName);
 		$codegroupDesc.val(codegroupDesc);
-		
 	});
 	
 	$('tbody').on('click', '.btn-remove-codegroup', function() {
-		let codegroupId = $(this).closest('tr').children('.codegroupId').html();
+		const codegroupId = $(this).closest('tr').children('.codegroupId').html();
 		$('#modal-delete-codegroup input[name=codegroupId]').val(codegroupId);
 	});
 	
@@ -396,7 +394,7 @@
 	/* 공통코드
 	----------------------------------------- */
 	
-	function getCode() {
+	const getCode = function() {
 		$.ajax({
 			type: "GET",
 			url: "/api/codes",
@@ -471,7 +469,7 @@
 	});
 	
 	$('#btn-add-code').on('click', function() {
-		$('#modal-addEdit-code form').get(0).reset();
+		document.querySelector('#modal-addEdit-code form').reset();
 		
 		$('#modal-addEdit-code .modal-title').html('공통코드 추가');
 		$('#modal-addEdit-code form').attr('method', 'post');
@@ -481,12 +479,12 @@
 		$('#modal-addEdit-code .modal-title').html('공통코드 수정');
 		$('#modal-addEdit-code form').attr('method', 'put');
 		
-		let $tr = $(this).closest('tr');
+		const $tr = $(this).closest('tr');
 		
-		let codeId = $tr.children('.codeId').html();
-		let codeName = $tr.children('.codeName').html();
-		let codeDesc = $tr.children('.codeDesc').html();
-		let sortNo = $tr.children('.sortNo').html();
+		const codeId = $tr.children('.codeId').html();
+		const codeName = $tr.children('.codeName').html();
+		const codeDesc = $tr.children('.codeDesc').html();
+		const sortNo = $tr.children('.sortNo').html();
 		
 		$codeId.val(codeId);
 		$old_codeId.val(codeId);
@@ -496,7 +494,7 @@
 	});
 	
 	$('tbody').on('click', '.btn-remove-code', function() {
-		let codeId = $(this).closest('tr').children('.codeId').html();
+		const codeId = $(this).closest('tr').children('.codeId').html();
 		$('#modal-delete-code input[name=codeId]').val(codeId);
 	});
 </script>
