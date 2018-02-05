@@ -9,4 +9,6 @@ public interface MenuService {
 	public List<MenuVo> listMenu() throws Exception;
 	
 	public void updateMenu(List<MenuVo> menus, List<String> deleted) throws Exception;
+	
+	public String listPublicMenu() throws Exception;
 }

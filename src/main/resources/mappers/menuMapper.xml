@@ -18,6 +18,10 @@
 		<result property="openYn"		column="open_yn" />
 	</resultMap>
 	
+	<resultMap type="java.util.HashMap" id="menuXmlResultMap">
+		<result property="menuXml" column="menu_xml" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	
 	<select id="list" resultMap="menuResultMap">
 		SELECT
 			menu_id, menu_name, menu_url
@@ -67,5 +71,36 @@
 		END
 	}
 	</delete>
-
+	
+	<select id="listXml" resultMap="menuXmlResultMap">
+	<![CDATA[
+	SELECT XMLSerialize(DOCUMENT
+		XMLQuery(
+			'declare function local:getMenus($menus as element(ROW)*, $pid as xs:string?) as element()*
+			{
+				let $item :=
+					for $i in $menus
+					where $i/PARENT_MENU_ID = $pid
+						or ( empty($pid) and not(exists($i/PARENT_MENU_ID)) )
+					order by $i/SORT_NO
+					return
+						<item id="{$i/MENU_ID}" name="{$i/MENU_NAME}" url="{$i/MENU_URL}">
+						{
+							local:getMenus($menus, $i/MENU_ID)
+						}
+						</item>
+				return
+					if ($item and $pid) then <subMenu>{$item}</subMenu>
+					else if ($item) then <rootMenu>{$item}</rootMenu>
+					else ()
+			}; (: :)
+			local:getMenus(fn:collection("oradb:/JUN097KIM/TBL_MENU")/ROW, ())'
+			returning content
+		)
+		AS CLOB INDENT
+	) AS menu_xml
+	FROM dual
+	]]>
+	</select>
+	
 </mapper>

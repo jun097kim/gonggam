@@ -14,12 +14,12 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	MenuMapper mapper;
-	
+
 	@Override
 	public List<MenuVo> listMenu() throws Exception {
 		return mapper.list();
 	}
-	
+
 	@Transactional
 	@Override
 	public void updateMenu(List<MenuVo> menus, List<String> deleted) throws Exception {
@@ -27,5 +27,10 @@ public class MenuServiceImpl implements MenuService {
 			mapper.delete(deleted);
 		}
 		mapper.update(menus);
+	}
+
+	@Override
+	public String listPublicMenu() throws Exception {
+		return (String) mapper.listXml().get("menuXml");
 	}
 }
