@@ -3,10 +3,11 @@ package kim.jun0.gonggam.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kim.jun0.gonggam.annotation.ActiveUser;
 import kim.jun0.gonggam.domain.CodegroupVo;
 import kim.jun0.gonggam.mapper.CodegroupMapper;
 import lombok.extern.java.Log;
@@ -24,15 +25,15 @@ public class CodegroupServiceImpl implements CodegroupService {
 	}
 
 	@Override
-	public void createCodegroup(@ActiveUser String userId, CodegroupVo vo) throws Exception {
-		vo.setRegUserId(userId);
+	public void createCodegroup(@AuthenticationPrincipal UserDetails activeUser, CodegroupVo vo) throws Exception {
+		vo.setRegUserId(activeUser.getUsername());
 		mapper.create(vo);
 	}
 
 	@Transactional
 	@Override
-	public void updateCodegroup(@ActiveUser String userId, CodegroupVo vo) throws Exception {
-		vo.setUpdateUserId(userId);
+	public void updateCodegroup(@AuthenticationPrincipal UserDetails activeUser, CodegroupVo vo) throws Exception {
+		vo.setUpdateUserId(activeUser.getUsername());
 		mapper.update(vo);
 	}
 	

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kim.jun0.gonggam.annotation.ActiveUser;
 import kim.jun0.gonggam.domain.CodegroupVo;
 import kim.jun0.gonggam.exception.ChildRecordFoundException;
 import kim.jun0.gonggam.service.CodegroupService;
@@ -45,13 +46,14 @@ public class CodegroupController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<String> createCodegroup(@ActiveUser String loginId, @RequestBody CodegroupVo vo) {
+	public ResponseEntity<String> createCodegroup(@AuthenticationPrincipal UserDetails activeUser,
+			@RequestBody CodegroupVo vo) {
 		
 		ResponseEntity<String> entity = null;
 		String msg = null;
 		
 		try {
-			service.createCodegroup(loginId, vo);
+			service.createCodegroup(activeUser, vo);
 			msg = "코드그룹이 성공적으로 등록되었습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.OK);
 			
@@ -65,13 +67,14 @@ public class CodegroupController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> updateCodegroup(@ActiveUser String loginId, @RequestBody CodegroupVo vo) {
+	public ResponseEntity<String> updateCodegroup(@AuthenticationPrincipal UserDetails activeUser,
+			@RequestBody CodegroupVo vo) {
 		
 		ResponseEntity<String> entity = null;
 		String msg = null;
 		
 		try {
-			service.updateCodegroup(loginId, vo);
+			service.updateCodegroup(activeUser, vo);
 			msg = "코드그룹이 성공적으로 수정되었습니다.";
 			entity = new ResponseEntity<>(msg, HttpStatus.OK);
 			

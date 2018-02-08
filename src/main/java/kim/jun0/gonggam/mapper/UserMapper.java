@@ -16,4 +16,6 @@ public interface UserMapper {
 	public void delete(String userId) throws Exception;
 	
 	public UserVo login(LoginDto dto) throws Exception;
+	
+	public UserVo findUserByUsername(String username);
 }

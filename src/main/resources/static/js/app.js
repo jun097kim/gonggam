@@ -166,17 +166,17 @@ $(function() {
 	    rules: {
 	        username: {
 	            required: true,
-	            email: true
+	            email: false
 	        },
 	        password: "required",
 	        agree: "required"
 	    },
 	    messages: {
 	        username: {
-	            required: "Please enter username",
+	            required: "아이디를 입력하세요",
 	            email: "Please enter a valid email address"
 	        },
-	        password:  "Please enter password",
+	        password:  "비밀번호를 입력하세요",
 	        agree: "Please accept our policy"
 	    },
 	    invalidHandler: function() {

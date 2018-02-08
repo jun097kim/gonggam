@@ -31,3 +31,7 @@ label {
 .input-group {
 	margin-bottom: 0;
 }
+
+.header .header-block-nav .profile-dropdown-menu button {
+    padding: 10px 15px;
+}

@@ -1,0 +1,39 @@
+package kim.jun0.gonggam.security;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
+import kim.jun0.gonggam.domain.GroupVo;
+import kim.jun0.gonggam.domain.UserVo;
+import lombok.Getter;
+import lombok.extern.java.Log;
+
+@Getter
+@Log
+public class GonggamSecurityUser extends User {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private static final String ROLE_PREFIX = "ROLE_";
+	
+	private UserVo vo;
+
+	public GonggamSecurityUser(UserVo vo) {
+		super(vo.getUserId(), vo.getUserPw(), makeGrantedAuthority(vo.getGroups()));
+		this.vo = vo;
+	}
+	
+	private static List<GrantedAuthority> makeGrantedAuthority(List<GroupVo> groups) {
+		List<GrantedAuthority> list = new ArrayList<>();
+		
+		groups.forEach(group -> {
+			list.add(new SimpleGrantedAuthority(ROLE_PREFIX + group.getGroupId()));
+		});
+		
+		return list;
+	}
+}

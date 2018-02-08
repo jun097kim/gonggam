@@ -15,6 +15,7 @@
 			flex-direction: column;
 			height: 100vh;
 		}
+		
 		.navbar-brand {
 			font-weight: 300;
 		}

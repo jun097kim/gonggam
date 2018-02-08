@@ -1,6 +1,7 @@
 package kim.jun0.gonggam.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +17,6 @@ public class UserVo {
 	private String userName;
 	private Date regDate;
 	private Date updateDate;
+	private List<GroupVo> groups;
 
 }

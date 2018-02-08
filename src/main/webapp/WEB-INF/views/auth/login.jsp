@@ -29,13 +29,14 @@
 						</div> Gonggam</h1>
 				</header>
 				<div class="auth-content">
-					<form id="login-form" action="/auth/loginPost" method="POST">
+					<form id="login-form" method="POST">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 						<div class="form-group">
 							<label for="username">아이디</label>
-							<input type="text" class="form-control underlined" name="userId" placeholder="아이디" required> </div>
+							<input type="text" class="form-control underlined" name="username" placeholder="아이디" required> </div>
 						<div class="form-group">
 							<label for="password">비밀번호</label>
-							<input type="password" class="form-control underlined" name="userPw" placeholder="비밀번호" required> </div>
+							<input type="password" class="form-control underlined" name="password" placeholder="비밀번호" required> </div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-block btn-primary" id="loginBtn">로그인</button>
 						</div>
