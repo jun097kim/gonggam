@@ -3,21 +3,15 @@
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<div class="title-search-block">
-	<div class="title-block">
-		<div class="row">
-			<div class="col-md-6">
-				<h3 class="title">메뉴</h3>
-			</div>
-		</div>
-	</div>
+<div class="title-block">
+	<h3 class="title">메뉴 관리</h3>
 </div>
 <section class="section">
-	<form>
+	<form id="menuForm">
 		<div class="card">
 			<div class="card-header">
 				<div class="header-block">
-					<p class="title">메뉴 관리</p>
+					<p class="title">메뉴</p>
 				</div>
 			</div>
 			<div class="card-block">
@@ -49,9 +43,9 @@
 							<label for="menuUrl" class="col-sm-3 col-form-label">메뉴URL</label>
 							<div class="col-sm-9">
 								<div class="input-group">
-									<span class="input-group-addon">http://gonggam.jun0.kim/</span>
+									<span class="input-group-addon">gonggam.jun0.kim</span>
 									<input type="text" class="form-control boxed"
-										id="menuUrl" name="menuUrl" placeholder="메뉴URL">
+										id="menuUrl" name="menuUrl" placeholder="/resources">
 								</div>
 							</div>
 						</div>
@@ -174,7 +168,7 @@
 		};
 	});
 	
-	$('form').submit(function(event) {
+	$('#menuForm').submit(function(event) {
 		event.preventDefault();
 		
 		$.ajax({
