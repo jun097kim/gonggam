@@ -17,6 +17,6 @@ public class UserVo {
 	private String userName;
 	private Date regDate;
 	private Date updateDate;
-	private List<GroupVo> groups;
+	private List<String> groupNames;
 
 }

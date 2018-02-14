@@ -88,34 +88,27 @@
 								</a>
 								<ul class="sidebar-nav">
 									<li>
-										<a href="/admin/user">모든 사용자</a>
+										<a href="/admin/user">사용자 관리</a>
 									</li>
 									<li>
-										<a href="/admin/user/group">그룹</a>
+										<a href="/admin/group">그룹 관리</a>
 									</li>
 								</ul>
 							</li>
 							<li>
-								<a href="">
-									<i class="fa fa-plug"></i> 공통코드
-									<i class="fa arrow"></i>
+								<a href="/admin/role">
+									<i class="fa fa-key"></i> 접근권한 관리
 								</a>
-								<ul class="sidebar-nav">
-									<li>
-										<a href="/admin/code"> 모든 공통코드</a>
-									</li>
-								</ul>
 							</li>
 							<li>
-								<a href="">
-									<i class="fa fa-sitemap"></i> 메뉴
-									<i class="fa arrow"></i>
+								<a href="/admin/code">
+									<i class="fa fa-plug"></i> 공통코드 관리
 								</a>
-								<ul class="sidebar-nav">
-									<li>
-										<a href="/admin/menu"> 모든 메뉴</a>
-									</li>
-								</ul>
+							</li>
+							<li>
+								<a href="/admin/menu">
+									<i class="fa fa-sitemap"></i> 메뉴 관리
+								</a>
 							</li>
 						</ul>
 					</nav>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kim.jun0.gonggam.mapper.UrlMapper">
+	<resultMap type="UrlVo" id="urlResultMap">
+		<id property="url" column="url" />
+		<collection property="groupName" ofType="java.lang.String">
+			<result column="group_name" />
+		</collection>
+	</resultMap>
+	
+	<select id="list" resultMap="urlResultMap">
+		SELECT *
+		FROM tbl_url
+		ORDER BY url, url_no
+	</select>
+	
+	<insert id="create">
+		INSERT INTO tbl_url
+		SELECT SEQ_URL.NEXTVAL, url, groupName
+		FROM (
+			<foreach collection="groupName" item="groupName" separator="UNION ALL">
+				SELECT #{url} AS url, #{groupName} AS groupName
+				FROM dual
+			</foreach>
+		)
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM tbl_url
+		WHERE url = #{old_url}
+	</delete>
+	
+</mapper>

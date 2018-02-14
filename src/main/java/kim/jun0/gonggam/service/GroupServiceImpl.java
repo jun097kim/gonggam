@@ -21,13 +21,11 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void createGroup(GroupVo vo) throws Exception {
-		vo.setGroupId(vo.getGroupId());
 		mapper.create(vo);
 	}
 	
 	@Override
 	public void updateGroup(GroupVo vo) throws Exception {
-		vo.setGroupId(vo.getGroupId());
 		mapper.update(vo);
 	}
 	

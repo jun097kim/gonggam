@@ -3,43 +3,25 @@
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<div class="title-search-block">
-	<div class="title-block">
-		<div class="row">
-			<div class="col-md-6">
-				<h3 class="title">그룹
-					<a href="#" class="btn btn-primary btn-sm rounded-s" id="btn-add"
-						data-toggle="modal" data-target="#modal-addEdit">추가</a>
-				</h3>
-			</div>
-		</div>
-	</div>
-	<div class="items-search">
-		<form class="form-inline">
-			<div class="input-group">
-				<input type="text" class="form-control boxed rounded-s" placeholder="검색">
-				<span class="input-group-btn">
-					<button class="btn btn-secondary rounded-s" type="button">
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-			</div>
-		</form>
-	</div>
+<div class="title-block">
+	<h3 class="title">그룹 관리</h3>
 </div>
 <section class="section">
 	<div class="card">
 		<div class="card-block">
 			<div class="card-title-block">
-				<h3 class="title">그룹</h3>
+				<h3 class="title">그룹
+					<a href="#" class="btn btn-primary btn-sm rounded" id="btn-add"
+						data-toggle="modal" data-target="#modal-addEdit">추가</a>
+				</h3>
 			</div>
 			<div class="table-responsive">
-				<table class="table table-sm table-striped table-bordered">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th class="fit"></th>
-							<th>그룹ID</th>
 							<th>그룹명</th>
+							<th>그룹설명</th>
 							<th class="fit"></th>
 						</tr>
 					</thead>
@@ -64,23 +46,20 @@
 				<div class="modal-body">
 					<div class="form-group row">
 						<div class="col-sm-3">
-							<label for="groupId">그룹ID</label>
+							<label for="groupId">그룹명</label>
 						</div>
 						<div class="col-sm-9">
-							<div class="input-group">
-								<span class="input-group-addon">GRP_</span>
-								<input type="text" class="form-control text-uppercase"
-									id="groupId" name="groupId" placeholder="그룹ID">
-							</div>
+							<input type="text" class="form-control text-uppercase"
+								id="groupName" name="groupName" placeholder="그룹명">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-3">
-							<label for="groupName">그룹명</label>
+							<label for="groupName">그룹설명</label>
 						</div>
 						<div class="col-sm-9">
 							<input type="text" class="form-control"
-								id="groupName" name="groupName" placeholder="그룹명">
+								id="groupDesc" name="groupDesc" placeholder="그룹설명">
 						</div>
 					</div>
 				</div>
@@ -126,13 +105,13 @@
 	{{#each .}}
 		<tr data-no="{{groupNo}}">
 			<th>{{oneBased @index}}</th>
-			<td class="groupId">{{groupId}}</td>
 			<td class="groupName">{{groupName}}</td>
+			<td class="groupDesc">{{groupDesc}}</td>
 			<td>
 				<div class="btn-group">
-					<button type="button" class="btn-edit btn btn-secondary btn-sm"
+					<button type="button" class="btn-edit btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-addEdit">수정</button>
-					<button type="button" class="btn-remove btn btn-secondary btn-sm"
+					<button type="button" class="btn-remove btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-delete">삭제</button>
 				</div>
 			</td>
@@ -150,8 +129,8 @@
 	})();
 
 	const $groupNo = $('#modal-addEdit input[name=groupNo]');
-	const $groupId = $('#modal-addEdit input[name=groupId]');
 	const $groupName = $('#modal-addEdit input[name=groupName]');
+	const $groupDesc = $('#modal-addEdit input[name=groupDesc]');
 	
 	$('#modal-addEdit form').submit(function(event) {
 		event.preventDefault();
@@ -164,8 +143,8 @@
 			},
 			data: JSON.stringify({
 				groupNo: $groupNo.val(),
-				groupId: "GRP_" + $groupId.val(),
-				groupName: $groupName.val()
+				groupName: $groupName.val(),
+				groupDesc: $groupDesc.val()
 			}),
 			dataType: "text",
 			success: function(msg) {
@@ -217,12 +196,12 @@
 		const $tr = $(this).closest('tr');
 		
 		const groupNo = $tr.data('no');
-		const groupId = $tr.children('.groupId').html().replace('GRP_', '');
 		const groupName = $tr.children('.groupName').html();
+		const groupDesc = $tr.children('.groupDesc').html();
 		
 		$groupNo.val(groupNo);
-		$groupId.val(groupId);
 		$groupName.val(groupName);
+		$groupDesc.val(groupDesc);
 	});
 	
 	$('tbody').on('click', '.btn-remove', function() {

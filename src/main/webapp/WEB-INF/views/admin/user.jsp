@@ -1,45 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<div class="title-search-block">
-	<div class="title-block">
-		<div class="row">
-			<div class="col-md-6">
-				<h3 class="title">사용자
-					<a href="#" class="btn btn-primary btn-sm rounded-s" id="btn-add"
-						data-toggle="modal" data-target="#modal-addEdit">추가</a>
-				</h3>
-			</div>
-		</div>
-	</div>
-	<div class="items-search">
-		<form class="form-inline">
-			<div class="input-group">
-				<input type="text" class="form-control boxed rounded-s" placeholder="검색">
-				<span class="input-group-btn">
-					<button class="btn btn-secondary rounded-s" type="button">
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-			</div>
-		</form>
-	</div>
+<div class="title-block">
+	<h3 class="title">사용자 관리</h3>
 </div>
 <section class="section">
 	<div class="card">
 		<div class="card-block">
 			<div class="card-title-block">
-				<h3 class="title">사용자</h3>
+				<h3 class="title">사용자
+					<a href="#" class="btn btn-primary btn-sm rounded" id="btn-add"
+						data-toggle="modal" data-target="#modal-addEdit">추가</a>
+				</h3>
 			</div>
 			<div class="table-responsive">
-				<table class="table table-sm table-striped table-bordered">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th class="fit"></th>
 							<th>아이디</th>
 							<th>이름</th>
+							<th>소속 그룹</th>
 							<th>등록일</th>
 							<th class="fit"></th>
 						</tr>
@@ -78,6 +62,7 @@
 						<div class="col-sm-9">
 							<input type="password" class="form-control"
 								id="userPw" name="userPw" placeholder="비밀번호">
+							<!-- TODO: <small class="form-text text-muted">비밀번호를 입력하지 않으면 기존 비밀번호가 유지됩니다.</small> -->
 						</div>
 					</div>
 					<div class="form-group row">
@@ -87,6 +72,19 @@
 						<div class="col-sm-9">
 							<input type="text" class="form-control"
 								id="userName" name="userName" placeholder="이름">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-3">
+							<label for="group">소속 그룹</label>
+						</div>
+						<div class="col-sm-9">
+							<c:forEach var="group" items="${groups}">
+								<label>
+									<input class="checkbox" type="checkbox" name="groupName" value="${group.groupName}">
+									<span>${group.groupName}</span>
+								</label>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -132,14 +130,19 @@
 	{{#each .}}
 		<tr>
 			<th>{{oneBased @index}}</th>
-			<td class="userId">{{userId}}</td>
-			<td class="userName">{{userName}}</td>
+			<td>{{userId}}</td>
+			<td>{{userName}}</td>
+			<td>
+				{{#each groupNames}}
+					<span class="badge badge-pill badge-primary">{{.}}</span>
+				{{/each}}
+			</td>
 			<td class="regDate">{{formatDate regDate}}</td>
 			<td>
 				<div class="btn-group">
-					<button type="button" class="btn-edit btn btn-secondary btn-sm"
+					<button type="button" class="btn-edit btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-addEdit">수정</button>
-					<button type="button" class="btn-remove btn btn-secondary btn-sm"
+					<button type="button" class="btn-remove btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-delete">삭제</button>
 				</div>
 			</td>
@@ -163,13 +166,19 @@
 	$('#modal-addEdit form').submit(function(event) {
 		event.preventDefault();
 		
+		const groupNames = [];
+		$('input[name=groupName]:checked').each(function() {
+			groupNames.push($(this).val());
+		});
+		
 		$.ajax({
 			type: $(this).attr('method'),
 			url: "/api/users",
 			data: JSON.stringify({
 				userId: $userId.val(),
 				userPw: $userPw.val(),
-				userName: $userName.val()
+				userName: $userName.val(),
+				groupNames: groupNames
 			}),
 			dataType: "text",
 			headers: {
@@ -181,7 +190,7 @@
 			},
 			error: function(xhr) {
 				alert(xhr.responseText);
-				$userid.focus();
+				$userId.focus();
 			}
 		});
 	});
@@ -220,24 +229,28 @@
 		$('#modal-addEdit form').attr('method', 'post');
 	});
 	
-	$('tbody').on('click', '.btn-edit' , function() {
+	$('tbody').on('click', 'tr' , function() {
 		document.querySelector('#modal-addEdit form').reset();
 		
 		$('#modal-addEdit .modal-title').html('사용자 수정');
 		$('#modal-addEdit input[name=userId]').prop('disabled', true);
 		$('#modal-addEdit form').attr('method', 'put');
 		
-		const $tr = $(this).closest('tr');
+		const tds = $(this).children('td');
 		
-		const userId = $tr.children('.userId').html();
-		const userName = $tr.children('.userName').html();
+		const userId = tds[0].innerHTML;
+		const userName = tds[1].innerHTML;
+		const groupNames = tds.eq(2).children('span');
 		
 		$userId.val(userId);
 		$userName.val(userName);
+		groupNames.each(function() {
+			$('input[value=' + $(this).text() + ']').prop('checked', true);
+		});
 	});
 	
 	$('tbody').on('click', '.btn-remove', function() {
-		const userId = $(this).closest('tr').children('.userId').html();
+		const userId = $(this).closest('tr').children('td')[0].innerHTML;
 		$('#modal-delete input[name=userId]').val(userId);
 	});
 </script>

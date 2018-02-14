@@ -7,8 +7,8 @@
 
 	<resultMap type="GroupVo" id="groupResultMap">
 		<id property="groupNo"			column="group_no" />
-		<result property="groupId"		column="group_id" />
 		<result property="groupName"	column="group_name" />
+		<result property="groupDesc"	column="group_desc" />
 	</resultMap>
 
 	<select id="list" resultMap="groupResultMap">
@@ -21,15 +21,15 @@
 		INSERT INTO tbl_group
 		VALUES (
 			SEQ_GROUP.NEXTVAL
-			, UPPER(#{groupId})
-			, #{groupName, jdbcType=VARCHAR}
+			, UPPER(#{groupName})
+			, #{groupDesc, jdbcType=VARCHAR}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE tbl_group
-		SET group_id = UPPER(#{groupId})
-			, group_name = #{groupName}
+		SET group_name = UPPER(#{groupName})
+			, group_desc = #{groupDesc}
 		WHERE group_no = #{groupNo}
 	</update>
 	

@@ -24,6 +24,11 @@ public class PublicController {
 		return "/index";
 	}
 	
+	@GetMapping("/accessDenied")
+	public void accessDenied() {
+		
+	}
+	
 	@RequestMapping(value = "/api/public/menus", produces = "application/xml")
 	@ResponseBody
 	public ResponseEntity<String> listPublicMenu() {

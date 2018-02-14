@@ -28,8 +28,13 @@ label {
 	margin: auto;
 }
 
-.input-group {
+.form-group.row .input-group {
 	margin-bottom: 0;
+}
+
+.input-group .btn {
+	margin-bottom: 0;
+	height: 100%;
 }
 
 .header .header-block-nav .profile-dropdown-menu button {

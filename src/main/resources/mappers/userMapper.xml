@@ -10,15 +10,16 @@
 		<result property="userPw"	column="user_pw" />
 		<result property="userName"	column="user_name" />
 		<result property="regDate"	column="reg_date" />
-		<collection property="groups" ofType="GroupVo">
-			<result property="groupId" column="group_id" />
+		<collection property="groupNames" ofType="java.lang.String">
+			<result column="group_name" />
 		</collection>
 	</resultMap>
 	
 	<select id="list" resultMap="userResultMap">
-		SELECT user_id, user_name, reg_date
-		FROM tbl_user
-		ORDER BY reg_date
+		SELECT u.user_id, u.user_name, u.reg_date, ug.group_name
+		FROM tbl_user u LEFT OUTER JOIN tbl_user_group ug
+		ON u.user_id = ug.user_id
+		ORDER BY reg_date, user_group_no
 	</select>
 	
 	<insert id="create">
@@ -37,15 +38,9 @@
 		DELETE FROM tbl_user
 		WHERE user_id = #{userId}
 	</delete>
-
-	<select id="login" resultMap="userResultMap">
-		SELECT *
-		FROM tbl_user
-		WHERE user_id = #{userId} AND user_pw = #{userPw}
-	</select>
 	
 	<select id="findUserByUsername" resultMap="userResultMap">
-		SELECT u.user_id, u.user_pw, u.user_name, ug.group_id
+		SELECT u.user_id, u.user_pw, u.user_name, ug.group_name
 		FROM tbl_user u LEFT OUTER JOIN tbl_user_group ug
 		ON u.user_id = ug.user_id
 		WHERE u.user_id = #{username}

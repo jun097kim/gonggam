@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import kim.jun0.gonggam.mapper.UserMapper;
 import lombok.extern.java.Log;
 
-@Service
 @Log
+@Service
 public class GonggamUsersService implements UserDetailsService {
 
 	@Autowired

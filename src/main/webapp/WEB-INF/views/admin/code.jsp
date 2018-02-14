@@ -4,19 +4,19 @@
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
 <div class="title-block">
-	<h3 class="title">공통코드</h3>
+	<h3 class="title">공통코드 관리</h3>
 </div>
 <section class="section">
 	<div class="card">
 		<div class="card-block">
 			<div class="card-title-block">
 				<h3 class="title">코드그룹
-					<a href="#" class="btn btn-primary-outline btn-sm" id="btn-add-codegroup"
+					<a href="#" class="btn btn-primary btn-sm rounded" id="btn-add-codegroup"
 						data-toggle="modal" data-target="#modal-addEdit-codegroup">추가</a>
 				</h3>
 			</div>
 			<div class="table-responsive">
-				<table class="table table-sm table-bordered table-striped table-hover" id="table-codegroup">
+				<table class="table table-striped table-hover" id="table-codegroup">
 					<thead>
 						<tr>
 							<th class="fit"></th>
@@ -30,7 +30,7 @@
 							<th class="fit"></th>
 						</tr>
 					</thead>
-					<tbody>	</tbody>
+					<tbody></tbody>
 				</table>
 			</div>
 		</div>
@@ -41,13 +41,13 @@
 		<div class="card-block table-responsive">
 			<div class="card-title-block">
 				 <h3 class="title">공통코드
- 					<a href="#" class="btn btn-primary-outline btn-sm" id="btn-add-code"
+ 					<a href="#" class="btn btn-primary btn-sm rounded" id="btn-add-code"
 						data-toggle="modal" data-target="#modal-addEdit-code">추가</a>
 				 </h3>
 				 <p class="title-description"></p>
 			</div>
 			<div class="table-responsive">
-				<table class="table table-sm table-striped table-bordered" id="table-code">
+				<table class="table table-striped" id="table-code">
 					<thead>
 						<tr>
 							<th class="fit"></th>
@@ -239,9 +239,9 @@
 			<td>{{formatDate updateDate}}</td>
 			<td>
 				<div class="btn-group">
-					<button type="button" class="btn-edit-codegroup btn btn-secondary btn-sm"
+					<button type="button" class="btn-edit-codegroup btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-addEdit-codegroup">수정</button>
-					<button type="button" class="btn-remove-codegroup btn btn-secondary btn-sm"
+					<button type="button" class="btn-remove-codegroup btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-delete-codegroup">삭제</button>
 				</div>
 			</td>
@@ -267,9 +267,9 @@
 			<td>{{formatDate updateDate}}</td>
 			<td>
 				<div class="btn-group">
-					<button type="button" class="btn-edit-code btn btn-secondary btn-sm"
+					<button type="button" class="btn-edit-code btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-addEdit-code">수정</button>
-					<button type="button" class="btn-remove-code btn btn-secondary btn-sm"
+					<button type="button" class="btn-remove-code btn btn-secondary btn-sm rounded"
 						data-toggle="modal" data-target="#modal-delete-code">삭제</button>
 				</div>
 			</td>

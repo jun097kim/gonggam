@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import kim.jun0.gonggam.domain.GroupVo;
 import kim.jun0.gonggam.domain.UserVo;
 import lombok.Getter;
 import lombok.extern.java.Log;
@@ -23,15 +22,15 @@ public class GonggamSecurityUser extends User {
 	private UserVo vo;
 
 	public GonggamSecurityUser(UserVo vo) {
-		super(vo.getUserId(), vo.getUserPw(), makeGrantedAuthority(vo.getGroups()));
+		super(vo.getUserId(), vo.getUserPw(), makeGrantedAuthority(vo.getGroupNames()));
 		this.vo = vo;
 	}
 	
-	private static List<GrantedAuthority> makeGrantedAuthority(List<GroupVo> groups) {
+	private static List<GrantedAuthority> makeGrantedAuthority(List<String> groupNames) {
 		List<GrantedAuthority> list = new ArrayList<>();
 		
-		groups.forEach(group -> {
-			list.add(new SimpleGrantedAuthority(ROLE_PREFIX + group.getGroupId()));
+		groupNames.forEach(groupName -> {
+			list.add(new SimpleGrantedAuthority(ROLE_PREFIX + groupName));
 		});
 		
 		return list;
